@@ -1,11 +1,13 @@
 <?php
 include_once("config_api.php");
-if(isset($_REQUEST['amount']) and isset($_REQUEST['color']) and isset($_REQUEST['type'])){
+if(isset($_REQUEST['amount']) and isset($_REQUEST['color'])
+    and isset($_REQUEST['type'])and isset($_REQUEST['idAccount'])){
     $json['status']='ok';
     $amount = sqi($_REQUEST['amount']);
     $color = sqi($_REQUEST['color']);
     $type = sqi($_REQUEST['type']);
-    $add = addrecord("income",array("amount"=>$amount,"color"=>$color,"type"=>$type));
+    $idAccount=sqi($_REQUEST['idAccount']);
+    $add = addrecord("income",array("amount"=>$amount,"color"=>$color,"type"=>$type,"idAccount"=>$idAccount));
     if($add){
         $json['add']='true';
     }
