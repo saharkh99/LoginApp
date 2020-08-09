@@ -89,13 +89,13 @@ function addrecord($tblname,$values=NULL){
         $query = "INSERT INTO $tblname ($key) VALUES ($value)";
         $r = mysqli_query($link,$query);
         if($r){
-            echo "true";
+           // echo "true";
             return true;
         }
         else{
             mysqli_error($link);
-            echo "false";
-           // return false;
+          //  echo "false";
+            return false;
         }
 
     }
@@ -147,7 +147,26 @@ function delete_record($tblname,$where){
         return false;
     }
 }
+function getDataMonthly($tblname,$month){
+    $link = db_connect();
+    $tblname = sqi($tblname);
+    $query = "SELECT SUM(amount) FROM $tblname WHERE dates LIKE '%$month%'";
+    $r = mysqli_query($link,$query);
+    if($r){
 
+        $res = array();
+        $i = 0;
+        while($row = mysqli_fetch_assoc($r)){
+            $res[$i] = $row;
+            $i++;
+        }
+        return $res;
+    }
+    else{
+        return mysqli_error($query);
+    }
+
+}
 function errorjson($error = 'error'){
     $json = array();
     $json['status'] = 'error';
@@ -156,8 +175,6 @@ function errorjson($error = 'error'){
     echo json_encode($json,JSON_UNESCAPED_UNICODE);
     exit();
 }
-
-
 ?>
 
 
