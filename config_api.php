@@ -167,6 +167,45 @@ function getDataMonthly($tblname,$month){
     }
 
 }
+function getAllMonthly($tblname,$month){
+    $link = db_connect();
+    $tblname = sqi($tblname);
+    $query = "SELECT * FROM $tblname WHERE dates LIKE '%$month%'";
+    $r = mysqli_query($link,$query);
+    if($r){
+
+        $res = array();
+        $i = 0;
+        while($row = mysqli_fetch_assoc($r)){
+            $res[$i] = $row;
+            $i++;
+        }
+        return $res;
+    }
+    else{
+        return mysqli_error($query);
+    }
+
+}
+function getAllDaily($tblname,$date){
+    $link = db_connect();
+    $tblname = sqi($tblname);
+    $query = "SELECT * FROM $tblname WHERE dates =$date";
+    $r = mysqli_query($link,$query);
+    if($r){
+        $res = array();
+        $i = 0;
+        while($row = mysqli_fetch_assoc($r)){
+            $res[$i] = $row;
+            $i++;
+        }
+        return $res;
+    }
+    else{
+        return mysqli_error($query);
+    }
+
+}
 function errorjson($error = 'error'){
     $json = array();
     $json['status'] = 'error';
