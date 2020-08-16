@@ -20,7 +20,7 @@ function db_connect(){
        return false;
     }
 }
-function getrecord($tblname,$limit=50,$where = 1){
+function getrecord($tblname,$limit=100,$where = 1){
     $link = db_connect();
     $tblname = sqi($tblname);
     $query = "SELECT * FROM $tblname WHERE $where order by id desc limit 0, $limit ";
